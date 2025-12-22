@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ouvre dans CrudiThé</title>
+  
+  <meta property="og:title" content="Découvre ce spot sur CrudiThé 🌱">
+  <meta property="og:description" content="L'annuaire vegan francophone">
+  <meta property="og:image" content="https://hvnderbvaxzjswdvxpgs.supabase.co/storage/v1/object/public/avatars/Design%20sans%20titre%20(4).png">
+  <meta property="og:type" content="website">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(180deg, #ffffff 0%, #f0f9f0 100%);
+      color: #019549;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .logo {
+      width: 180px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+    
+    h1 { 
+      font-size: 22px; 
+      margin: 0 0 10px 0;
+      font-weight: 600;
+      color: #019549;
+    }
+    
+    .item-name {
+      font-size: 18px;
+      color: #333;
+      font-weight: 500;
+      margin: 0 0 5px 0;
+    }
+    
+    .subtitle { 
+      font-size: 15px; 
+      color: #888;
+      margin: 0 0 25px 0;
+    }
+    
+    .btn {
+      background: linear-gradient(135deg, #8AC640 0%, #019549 100%);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(138, 198, 64, 0.35);
+      display: inline-block;
+      margin: 8px;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(138, 198, 64, 0.45);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #019549 0%, #017339 100%);
+      font-size: 18px;
+      padding: 16px 40px;
+    }
+    
+    .store-section {
+      margin-top: 30px;
+      padding-top: 25px;
+      border-top: 1px solid #e0e0e0;
+    }
+    
+    .store-section p {
+      font-size: 14px;
+      color: #999;
+      margin: 0 0 15px 0;
+    }
+    
+    .store-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .btn-store {
+      background: #333;
+      font-size: 14px;
+      padding: 12px 24px;
+    }
+    
+    .btn-store:hover {
+      background: #555;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <img src="https://hvnderbvaxzjswdvxpgs.supabase.co/storage/v1/object/public/avatars/Design%20sans%20titre%20(4).png" 
+       alt="CrudiThé" 
+       class="logo">
+  
+  <h1>🌱 Voir sur CrudiThé</h1>
+  <p class="item-name" id="item-name"></p>
+  <p class="subtitle">Clique pour ouvrir dans l'app</p>
+  
+  <a id="open-app-btn" href="#" class="btn btn-primary">
+    Ouvrir l'app
+  </a>
+  
+  <div class="store-section">
+    <p>Pas encore l'app ? Télécharge-la !</p>
+    <div class="store-buttons">
+      <a href="https://apps.apple.com/app/crudithe/VOTRE_ID" class="btn btn-store">
+        🍎 App Store
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.crudithe.app" class="btn btn-store">
+        🤖 Google Play
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Récupérer les paramètres
+    const urlParams = new URLSearchParams(window.location.search);
+    const type = urlParams.get('type');   
+    const id = urlParams.get('id');       
+    const name = urlParams.get('name');
+    
+    // Afficher le nom
+    if (name) {
+      document.getElementById('item-name').textContent = decodeURIComponent(name);
+    }
+
+    // Construire le deep link
+    let deepLink = 'crudithe://cruditheapp.com';
+
+    if (type === 'recipe' && id) {
+      deepLink = 'crudithe://cruditheapp.com/recipeDetails?recipeId=' + id;
+    } else if (type === 'event' && id) {
+      deepLink = 'crudithe://cruditheapp.com/eventDetails?eventId=' + id;
+    } else if (type === 'producteur' && id) {
+      deepLink = 'crudithe://cruditheapp.com/producteurDetails?prodId=' + id;
+    } else if (type === 'restaurant' && id) {
+      deepLink = 'crudithe://cruditheapp.com/restaurantDetails?restoId=' + id;
+    }
+
+    // Configurer le bouton
+    document.getElementById('open-app-btn').href = deepLink;
+  </script>
+</body>
+</html>
