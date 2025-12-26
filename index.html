@@ -148,17 +148,17 @@
       document.getElementById('item-name').textContent = decodeURIComponent(name);
     }
 
-    // Construire le deep link
+    // Construire le deep link avec fromShare=true
     let deepLink = 'crudithe://cruditheapp.com';
 
     if (type === 'recipe' && id) {
-      deepLink = 'crudithe://cruditheapp.com/recipeDetails?recipeId=' + id;
+      deepLink = 'crudithe://cruditheapp.com/recipeDetails?recipeId=' + id + '&fromShare=true';
     } else if (type === 'event' && id) {
-      deepLink = 'crudithe://cruditheapp.com/eventDetails?eventId=' + id;
+      deepLink = 'crudithe://cruditheapp.com/eventDetails?eventId=' + id + '&fromShare=true';
     } else if (type === 'producteur' && id) {
-      deepLink = 'crudithe://cruditheapp.com/producteurDetails?prodId=' + id;
+      deepLink = 'crudithe://cruditheapp.com/producteurDetails?prodId=' + id + '&fromShare=true';
     } else if (type === 'restaurant' && id) {
-      deepLink = 'crudithe://cruditheapp.com/restaurantDetails?restoId=' + id;
+      deepLink = 'crudithe://cruditheapp.com/restaurantDetails?restoId=' + id + '&fromShare=true';
     }
 
     // Configurer le bouton
