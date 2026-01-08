@@ -7,15 +7,15 @@
   <script>
     // Récupère les paramètres de l'URL (tokens de Supabase)
     const params = window.location.search || window.location.hash;
-    // Redirige vers l'app avec les paramètres
-    window.location.href = 'crudithe://cruditheapp.com' + params;
+    // Redirige vers l'app avec les paramètres, directement sur la page d'enregistrement
+    window.location.href = 'crudithe://cruditheapp.com/authentificationEnregistrement' + params;
   </script>
 </head>
 <body>
   <p>Redirection vers CrudiThé App...</p>
-  <p>Si l'application ne s'ouvre pas automatiquement, <a id="manual-link" href="crudithe://cruditheapp.com">clique ici</a>.</p>
+  <p>Si l'application ne s'ouvre pas automatiquement, <a id="manual-link" href="crudithe://cruditheapp.com/authentificationEnregistrement">clique ici</a>.</p>
   <script>
-    document.getElementById('manual-link').href = 'crudithe://cruditheapp.com' + (window.location.search || window.location.hash);
+    document.getElementById('manual-link').href = 'crudithe://cruditheapp.com/authentificationEnregistrement' + (window.location.search || window.location.hash);
   </script>
 </body>
 </html>
