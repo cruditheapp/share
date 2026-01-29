@@ -142,23 +142,24 @@
     const type = urlParams.get('type');   
     const id = urlParams.get('id');       
     const name = urlParams.get('name');
+    const lang = urlParams.get('lang') || 'fr';
     
     // Afficher le nom
     if (name) {
       document.getElementById('item-name').textContent = decodeURIComponent(name);
     }
 
-    // Construire le deep link avec fromShare=true
+    // Construire le deep link avec fromShare=true et lang
     let deepLink = 'crudithe://cruditheapp.com';
 
     if (type === 'recipe' && id) {
-      deepLink = 'crudithe://cruditheapp.com/recipeDetails?recipeId=' + id + '&fromShare=true';
+      deepLink = `crudithe://cruditheapp.com/recipeDetails?recipeId=${id}&fromShare=true&lang=${lang}`;
     } else if (type === 'event' && id) {
-      deepLink = 'crudithe://cruditheapp.com/eventDetails?eventId=' + id + '&fromShare=true';
+      deepLink = `crudithe://cruditheapp.com/eventDetails?eventId=${id}&fromShare=true&lang=${lang}`;
     } else if (type === 'producteur' && id) {
-      deepLink = 'crudithe://cruditheapp.com/producteurDetails?prodId=' + id + '&fromShare=true';
+      deepLink = `crudithe://cruditheapp.com/producteurDetails?prodId=${id}&fromShare=true&lang=${lang}`;
     } else if (type === 'restaurant' && id) {
-      deepLink = 'crudithe://cruditheapp.com/restaurantDetails?restoId=' + id + '&fromShare=true';
+      deepLink = `crudithe://cruditheapp.com/restaurantDetails?restoId=${id}&fromShare=true&lang=${lang}`;
     }
 
     // Configurer le bouton
