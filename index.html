@@ -47,6 +47,7 @@
       color: #333;
       font-weight: 500;
       margin: 0 0 5px 0;
+      min-height: 24px;
     }
     
     .subtitle { 
@@ -117,7 +118,7 @@
        class="logo">
   
   <h1>🌱 Voir sur CrudiThé</h1>
-  <p class="item-name" id="item-name"></p>
+  <p class="item-name" id="item-name">Chargement...</p>
   <p class="subtitle">Clique pour ouvrir dans l'app</p>
   
   <a id="open-app-btn" href="#" class="btn btn-primary">
@@ -141,15 +142,9 @@
     const urlParams = new URLSearchParams(window.location.search);
     const type = urlParams.get('type');   
     const id = urlParams.get('id');       
-    const name = urlParams.get('name');
     const lang = urlParams.get('lang') || 'fr';
     
-    // Afficher le nom
-    if (name) {
-      document.getElementById('item-name').textContent = decodeURIComponent(name);
-    }
-
-    // Construire le deep link avec fromShare=true et lang
+    // Construire le deep link
     let deepLink = 'crudithe://cruditheapp.com';
 
     if (type === 'recipe' && id) {
@@ -164,6 +159,67 @@
 
     // Configurer le bouton
     document.getElementById('open-app-btn').href = deepLink;
+
+    // Récupérer le nom depuis Supabase
+    async function fetchItemName() {
+      if (!type || !id) {
+        document.getElementById('item-name').textContent = '';
+        return;
+      }
+
+      try {
+        let table = '';
+        let column = 'namespot';
+        
+        if (type === 'recipe') {
+          table = 'recipes';
+          column = 'title';
+        } else if (type === 'event') {
+          table = 'events';
+          column = 'title';
+        } else if (type === 'producteur') {
+          table = 'producteurs';
+          column = 'namespot';
+        } else if (type === 'restaurant') {
+          table = 'restaurants';
+          column = 'namespot';
+        }
+
+        const response = await fetch(
+          `https://hvnderbvaxzjswdvxpgs.supabase.co/rest/v1/${table}?id=eq.${id}&select=${column}`,
+          {
+            headers: {
+              'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2bmRlcmJ2YXh6anN3ZHZ4cGdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjU2NDE3MjUsImV4cCI6MjA0MTIxNzcyNX0.hpPvqvT_lVq6g0-Ln-NmUdJRGFNPmUwpZQxWrQlIrFI',
+              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2bmRlcmJ2YXh6anN3ZHZ4cGdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjU2NDE3MjUsImV4cCI6MjA0MTIxNzcyNX0.hpPvqvT_lVq6g0-Ln-NmUdJRGFNPmUwpZQxWrQlIrFI'
+            }
+          }
+        );
+
+        const data = await response.json();
+        if (data && data[0] && data[0][column]) {
+          document.getElementById('item-name').textContent = data[0][column];
+        } else {
+          // Fallback sur le nom de l'URL si l'API ne retourne rien
+          const name = urlParams.get('name');
+          if (name) {
+            document.getElementById('item-name').textContent = decodeURIComponent(name);
+          } else {
+            document.getElementById('item-name').textContent = '';
+          }
+        }
+      } catch (error) {
+        console.error('Erreur:', error);
+        // Fallback sur le nom de l'URL si l'API échoue
+        const name = urlParams.get('name');
+        if (name) {
+          document.getElementById('item-name').textContent = decodeURIComponent(name);
+        } else {
+          document.getElementById('item-name').textContent = '';
+        }
+      }
+    }
+
+    fetchItemName();
   </script>
 </body>
 </html>
