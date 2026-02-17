@@ -10,111 +10,225 @@
   <meta property="og:image" content="https://hvnderbvaxzjswdvxpgs.supabase.co/storage/v1/object/public/avatars/Design%20sans%20titre%20(4).png">
   <meta property="og:type" content="website">
   
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
     
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      margin: 0;
-      background: linear-gradient(180deg, #ffffff 0%, #f0f9f0 100%);
-      color: #019549;
+      background: #f8fbf6;
+      color: #1a1a1a;
       text-align: center;
-      padding: 20px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Fond décoratif subtil */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -30%;
+      right: -20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(138,198,64,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -20%;
+      left: -15%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(1,149,73,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 40px 32px 36px;
+      max-width: 380px;
+      width: 100%;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+      position: relative;
+      z-index: 1;
+      animation: cardIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
     
     .logo {
-      width: 180px;
+      width: 140px;
       height: auto;
-      margin-bottom: 20px;
-    }
-    
-    h1 { 
-      font-size: 22px; 
-      margin: 0 0 10px 0;
-      font-weight: 600;
-      color: #019549;
-      line-height: 1.4;
+      margin-bottom: 28px;
+      animation: logoIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
     }
 
-    h1 strong {
-      color: #017339;
-      font-size: 24px;
+    @keyframes logoIn {
+      from { opacity: 0; transform: scale(0.85); }
+      to { opacity: 1; transform: scale(1); }
     }
-    
-    .subtitle { 
-      font-size: 15px; 
-      color: #888;
-      margin: 0 0 25px 0;
-      min-height: 20px;
-    }
-    
-    .btn {
-      background: linear-gradient(135deg, #8AC640 0%, #019549 100%);
-      color: white;
-      padding: 14px 32px;
-      border-radius: 30px;
-      text-decoration: none;
+
+    /* Badge catégorie */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: linear-gradient(135deg, #e8f5e0, #dff0d8);
+      color: #2d7a1e;
+      font-size: 12px;
       font-weight: 600;
-      font-size: 16px;
-      transition: all 0.3s;
-      box-shadow: 0 4px 15px rgba(138, 198, 64, 0.35);
-      display: inline-block;
-      margin: 8px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      animation: fadeIn 0.4s ease 0.3s both;
     }
-    
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(138, 198, 64, 0.45);
+
+    .badge-icon {
+      font-size: 13px;
     }
-    
-    .btn-primary {
-      background: linear-gradient(135deg, #019549 0%, #017339 100%);
-      font-size: 18px;
-      padding: 16px 40px;
+
+    /* Nom du spot */
+    .spot-name {
+      font-size: 26px;
+      font-weight: 700;
+      color: #019549;
+      line-height: 1.25;
+      margin-bottom: 6px;
+      min-height: 33px;
+      animation: fadeIn 0.4s ease 0.35s both;
     }
-    
-    .store-section {
-      margin-top: 30px;
-      padding-top: 25px;
-      border-top: 1px solid #e0e0e0;
-    }
-    
-    .store-section p {
-      font-size: 14px;
+
+    .on-crudithe {
+      font-size: 15px;
       color: #999;
-      margin: 0 0 15px 0;
+      font-weight: 400;
+      margin-bottom: 28px;
+      animation: fadeIn 0.4s ease 0.4s both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Bouton principal */
+    .btn-open {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #019549, #017a3d);
+      color: white;
+      padding: 16px 40px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 17px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 16px rgba(1, 149, 73, 0.3);
+      width: 100%;
+      max-width: 280px;
+      animation: fadeIn 0.4s ease 0.5s both;
+    }
+
+    .btn-open:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(1, 149, 73, 0.35);
+    }
+
+    .btn-open:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(1, 149, 73, 0.3);
+    }
+
+    .btn-icon {
+      font-size: 18px;
+      transition: transform 0.25s ease;
+    }
+
+    .btn-open:hover .btn-icon {
+      transform: translateX(2px);
+    }
+
+    /* Séparateur */
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: #e8e8e8;
+      margin: 28px auto 20px;
+      animation: fadeIn 0.4s ease 0.6s both;
+    }
+
+    /* Section stores */
+    .store-text {
+      font-size: 13px;
+      color: #b0b0b0;
+      margin-bottom: 14px;
+      animation: fadeIn 0.4s ease 0.65s both;
     }
     
     .store-buttons {
       display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
+      gap: 10px;
       justify-content: center;
+      animation: fadeIn 0.4s ease 0.7s both;
     }
     
     .btn-store {
-      background: #333;
-      font-size: 14px;
-      padding: 12px 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #1a1a1a;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      transition: all 0.2s ease;
     }
     
     .btn-store:hover {
-      background: #555;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      background: #333;
+      transform: translateY(-1px);
     }
 
+    .store-icon {
+      font-size: 15px;
+    }
+
+    /* Loading shimmer */
     .name-loading {
       display: inline-block;
-      width: 180px;
-      height: 24px;
-      background: linear-gradient(90deg, #e0f0e0 25%, #f0f9f0 50%, #e0f0e0 75%);
+      width: 160px;
+      height: 28px;
+      background: linear-gradient(90deg, #e8f5e0 25%, #f0f9f0 50%, #e8f5e0 75%);
       background-size: 200% 100%;
       animation: shimmer 1.5s infinite;
       border-radius: 8px;
@@ -125,28 +239,61 @@
       0% { background-position: 200% 0; }
       100% { background-position: -200% 0; }
     }
+
+    /* Responsive */
+    @media (max-width: 400px) {
+      .card {
+        padding: 32px 24px 28px;
+        border-radius: 24px;
+      }
+
+      .spot-name {
+        font-size: 23px;
+      }
+
+      .btn-open {
+        padding: 14px 32px;
+        font-size: 16px;
+      }
+
+      .store-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
   </style>
 </head>
 <body>
-  <img src="https://hvnderbvaxzjswdvxpgs.supabase.co/storage/v1/object/public/avatars/Design%20sans%20titre%20(4).png" 
-       alt="CrudiThé" 
-       class="logo">
-  
-  <h1 id="title">🌱 <span class="name-loading"></span><br>sur CrudiThé</h1>
-  <p id="subtitle" class="subtitle">Chargement...</p>
-  
-  <a id="open-app-btn" href="#" class="btn btn-primary">
-    Ouvrir le Spot
-  </a>
-  
-  <div class="store-section">
-    <p>Pas encore l'app ? Télécharge-la !</p>
+
+  <div class="card">
+    <img src="https://hvnderbvaxzjswdvxpgs.supabase.co/storage/v1/object/public/avatars/Design%20sans%20titre%20(4).png" 
+         alt="CrudiThé" 
+         class="logo">
+    
+    <div id="badge" class="badge" style="display:none;">
+      <span class="badge-icon" id="badge-icon">📍</span>
+      <span id="badge-text">Restaurant</span>
+    </div>
+
+    <div id="spot-name" class="spot-name">
+      <span class="name-loading"></span>
+    </div>
+    <p class="on-crudithe">sur CrudiThé</p>
+    
+    <a id="open-app-btn" href="#" class="btn-open">
+      <span id="btn-text">Ouvrir dans l'app</span>
+      <span class="btn-icon">→</span>
+    </a>
+
+    <div class="divider"></div>
+
+    <p class="store-text" id="store-text">Pas encore l'app ? Télécharge-la !</p>
     <div class="store-buttons">
-      <a href="https://apps.apple.com/app/crudithe/id6756739944" class="btn btn-store">
-        🍎 App Store
+      <a href="https://apps.apple.com/app/crudithe/id6756739944" class="btn-store">
+        <span class="store-icon">🍎</span> App Store
       </a>
-      <a href="https://play.google.com/store/apps/details?id=com.crudithe.app" class="btn btn-store">
-        🤖 Google Play
+      <a href="https://play.google.com/store/apps/details?id=com.crudithe.app" class="btn-store">
+        <span class="store-icon">▶️</span> Google Play
       </a>
     </div>
   </div>
@@ -174,36 +321,44 @@
         table: 'restaurants', 
         column: 'namespot',
         fallbackColumn: null,
-        label: { fr: 'le spot', en: 'the spot', es: 'el spot' },
-        btnLabel: { fr: 'Voir le spot', en: 'View spot', es: 'Ver el spot' }
+        badge: { fr: 'Restaurant', en: 'Restaurant', es: 'Restaurante' },
+        badgeIcon: '📍',
+        btnLabel: { fr: "Ouvrir dans l'app", en: 'Open in app', es: 'Abrir en la app' }
       },
       recipe: { 
         table: 'recettes', 
         column: getRecipeColumn(lang),
         fallbackColumn: 'nom_recette',
-        label: { fr: 'la recette', en: 'the recipe', es: 'la receta' },
-        btnLabel: { fr: 'Voir la recette', en: 'View recipe', es: 'Ver la receta' }
+        badge: { fr: 'Recette', en: 'Recipe', es: 'Receta' },
+        badgeIcon: '🍽️',
+        btnLabel: { fr: "Voir la recette", en: 'View recipe', es: 'Ver la receta' }
       },
       event: { 
         table: 'events', 
         column: 'title',
         fallbackColumn: null,
-        label: { fr: "l'événement", en: 'the event', es: 'el evento' },
+        badge: { fr: 'Événement', en: 'Event', es: 'Evento' },
+        badgeIcon: '📅',
         btnLabel: { fr: "Voir l'événement", en: 'View event', es: 'Ver el evento' }
       },
       producteur: { 
         table: 'producteurs', 
         column: 'namespot',
         fallbackColumn: null,
-        label: { fr: 'le producteur', en: 'the producer', es: 'el productor' },
-        btnLabel: { fr: 'Voir le producteur', en: 'View producer', es: 'Ver el productor' }
+        badge: { fr: 'Producteur', en: 'Producer', es: 'Productor' },
+        badgeIcon: '🌿',
+        btnLabel: { fr: "Ouvrir dans l'app", en: 'Open in app', es: 'Abrir en la app' }
       }
     };
 
     // ===== ÉLÉMENTS DOM =====
-    var titleEl = document.getElementById('title');
-    var subtitleEl = document.getElementById('subtitle');
+    var spotNameEl = document.getElementById('spot-name');
     var btnEl = document.getElementById('open-app-btn');
+    var btnTextEl = document.getElementById('btn-text');
+    var badgeEl = document.getElementById('badge');
+    var badgeIconEl = document.getElementById('badge-icon');
+    var badgeTextEl = document.getElementById('badge-text');
+    var storeTextEl = document.getElementById('store-text');
 
     // ===== DEEP LINK =====
     var deepLink = 'crudithe://cruditheapp.com';
@@ -224,27 +379,28 @@
     var config = typeConfig[type] || null;
 
     if (config) {
-      var label = config.label[lang] || config.label['fr'];
-      var btnLabel = config.btnLabel[lang] || config.btnLabel['fr'];
-      titleEl.innerHTML = '🌱 Découvre ' + label + '<br>sur CrudiThé';
-      btnEl.textContent = btnLabel;
+      // Badge
+      badgeEl.style.display = 'inline-flex';
+      badgeIconEl.textContent = config.badgeIcon;
+      badgeTextEl.textContent = config.badge[lang] || config.badge['fr'];
 
+      // Bouton
+      btnTextEl.textContent = config.btnLabel[lang] || config.btnLabel['fr'];
+
+      // Store text
       if (lang === 'en') {
-        subtitleEl.textContent = 'Tap to open in the app';
+        storeTextEl.textContent = "Don't have the app? Download it!";
       } else if (lang === 'es') {
-        subtitleEl.textContent = 'Toca para abrir en la app';
-      } else {
-        subtitleEl.textContent = "Clique pour ouvrir dans l'app";
+        storeTextEl.textContent = '¿No tienes la app? ¡Descárgala!';
       }
-    } else {
-      titleEl.innerHTML = '🌱 Découvre ce spot<br>sur CrudiThé';
-      subtitleEl.textContent = "Clique pour ouvrir dans l'app";
-      btnEl.textContent = 'Ouvrir dans CrudiThé';
     }
 
     // ===== FETCH NOM DEPUIS SUPABASE =====
     async function fetchSpotName() {
-      if (!config || !id) return;
+      if (!config || !id) {
+        spotNameEl.textContent = 'CrudiThé';
+        return;
+      }
 
       try {
         var columns = config.column;
@@ -261,10 +417,16 @@
           }
         });
 
-        if (!res.ok) return;
+        if (!res.ok) {
+          spotNameEl.textContent = 'Ce spot';
+          return;
+        }
 
         var data = await res.json();
-        if (!data || data.length === 0) return;
+        if (!data || data.length === 0) {
+          spotNameEl.textContent = 'Ce spot';
+          return;
+        }
 
         var name = data[0][config.column];
         if (!name && config.fallbackColumn) {
@@ -272,17 +434,20 @@
         }
         
         if (name) {
-          // Sécuriser contre l'injection HTML
           var safeName = name.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-          titleEl.innerHTML = '🌱 Découvre<br><strong>' + safeName + '</strong><br>sur CrudiThé';
+          spotNameEl.innerHTML = safeName;
           
           var ogTitle = document.querySelector('meta[property="og:title"]');
           if (ogTitle) {
             ogTitle.setAttribute('content', name + ' sur CrudiThé 🌱');
           }
+          document.title = name + ' — CrudiThé';
+        } else {
+          spotNameEl.textContent = 'Ce spot';
         }
       } catch (err) {
         console.log('Erreur fetch nom:', err);
+        spotNameEl.textContent = 'Ce spot';
       }
     }
 
