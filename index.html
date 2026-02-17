@@ -40,12 +40,19 @@
       margin: 0 0 10px 0;
       font-weight: 600;
       color: #019549;
+      line-height: 1.4;
+    }
+
+    h1 strong {
+      color: #017339;
+      font-size: 24px;
     }
     
     .subtitle { 
       font-size: 15px; 
       color: #888;
       margin: 0 0 25px 0;
+      min-height: 20px;
     }
     
     .btn {
@@ -102,6 +109,22 @@
       background: #555;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
+
+    .name-loading {
+      display: inline-block;
+      width: 180px;
+      height: 24px;
+      background: linear-gradient(90deg, #e0f0e0 25%, #f0f9f0 50%, #e0f0e0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 8px;
+      vertical-align: middle;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
   </style>
 </head>
 <body>
@@ -109,11 +132,11 @@
        alt="CrudiThé" 
        class="logo">
   
-  <h1>🌱 Voir le Spot sur CrudiThé</h1>
-  <p class="subtitle">Clique pour ouvrir dans l'app</p>
+  <h1 id="title">🌱 <span class="name-loading"></span><br>sur CrudiThé</h1>
+  <p id="subtitle" class="subtitle">Chargement...</p>
   
   <a id="open-app-btn" href="#" class="btn btn-primary">
-    Ouvrir l'app
+    Ouvrir le Spot
   </a>
   
   <div class="store-section">
@@ -129,27 +152,141 @@
   </div>
 
   <script>
-    // Récupérer les paramètres
-    const urlParams = new URLSearchParams(window.location.search);
-    const type = urlParams.get('type');   
-    const id = urlParams.get('id');       
-    const lang = urlParams.get('lang') || 'fr';
-    
-    // Construire le deep link
-    let deepLink = 'crudithe://cruditheapp.com';
+    // ===== CONFIG SUPABASE =====
+    var SUPABASE_URL = 'https://hvnderbvaxzjswdvxpgs.supabase.co';
+    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2bmRlcmJ2YXh6anN3ZHZ4cGdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgwNzAyNzEsImV4cCI6MjA3MzY0NjI3MX0.SqWpfZ4kjW74tU3cD5UvnyRjVXmYaMKjdDs7cgPkSUw';
 
-    if (type === 'recipe' && id) {
-      deepLink = `crudithe://cruditheapp.com/recipeDetails?recipeId=${id}&fromShare=true&lang=${lang}`;
-    } else if (type === 'event' && id) {
-      deepLink = `crudithe://cruditheapp.com/eventDetails?eventId=${id}&fromShare=true&lang=${lang}`;
-    } else if (type === 'producteur' && id) {
-      deepLink = `crudithe://cruditheapp.com/producteurDetails?prodId=${id}&fromShare=true&lang=${lang}`;
-    } else if (type === 'restaurant' && id) {
-      deepLink = `crudithe://cruditheapp.com/restaurantDetails?restoId=${id}&fromShare=true&lang=${lang}`;
+    // ===== PARAMÈTRES URL =====
+    var urlParams = new URLSearchParams(window.location.search);
+    var type = urlParams.get('type');
+    var id = urlParams.get('id');
+    var lang = urlParams.get('lang') || 'fr';
+
+    // ===== MAPPING TABLES =====
+    function getRecipeColumn(currentLang) {
+      if (currentLang === 'en') return 'nom_recette_en';
+      if (currentLang === 'es') return 'nom_recette_es';
+      return 'nom_recette';
     }
 
-    // Configurer le bouton
-    document.getElementById('open-app-btn').href = deepLink;
+    var typeConfig = {
+      restaurant: { 
+        table: 'restaurants', 
+        column: 'namespot',
+        fallbackColumn: null,
+        label: { fr: 'le spot', en: 'the spot', es: 'el spot' },
+        btnLabel: { fr: 'Voir le spot', en: 'View spot', es: 'Ver el spot' }
+      },
+      recipe: { 
+        table: 'recettes', 
+        column: getRecipeColumn(lang),
+        fallbackColumn: 'nom_recette',
+        label: { fr: 'la recette', en: 'the recipe', es: 'la receta' },
+        btnLabel: { fr: 'Voir la recette', en: 'View recipe', es: 'Ver la receta' }
+      },
+      event: { 
+        table: 'events', 
+        column: 'title',
+        fallbackColumn: null,
+        label: { fr: "l'événement", en: 'the event', es: 'el evento' },
+        btnLabel: { fr: "Voir l'événement", en: 'View event', es: 'Ver el evento' }
+      },
+      producteur: { 
+        table: 'producteurs', 
+        column: 'namespot',
+        fallbackColumn: null,
+        label: { fr: 'le producteur', en: 'the producer', es: 'el productor' },
+        btnLabel: { fr: 'Voir le producteur', en: 'View producer', es: 'Ver el productor' }
+      }
+    };
+
+    // ===== ÉLÉMENTS DOM =====
+    var titleEl = document.getElementById('title');
+    var subtitleEl = document.getElementById('subtitle');
+    var btnEl = document.getElementById('open-app-btn');
+
+    // ===== DEEP LINK =====
+    var deepLink = 'crudithe://cruditheapp.com';
+
+    if (type === 'recipe' && id) {
+      deepLink = 'crudithe://cruditheapp.com/recipeDetails?recipeId=' + id + '&fromShare=true&lang=' + lang;
+    } else if (type === 'event' && id) {
+      deepLink = 'crudithe://cruditheapp.com/eventDetails?eventId=' + id + '&fromShare=true&lang=' + lang;
+    } else if (type === 'producteur' && id) {
+      deepLink = 'crudithe://cruditheapp.com/producteurDetails?prodId=' + id + '&fromShare=true&lang=' + lang;
+    } else if (type === 'restaurant' && id) {
+      deepLink = 'crudithe://cruditheapp.com/restaurantDetails?restoId=' + id + '&fromShare=true&lang=' + lang;
+    }
+
+    btnEl.href = deepLink;
+
+    // ===== TEXTES PAR DÉFAUT =====
+    var config = typeConfig[type] || null;
+
+    if (config) {
+      var label = config.label[lang] || config.label['fr'];
+      var btnLabel = config.btnLabel[lang] || config.btnLabel['fr'];
+      titleEl.innerHTML = '🌱 Découvre ' + label + '<br>sur CrudiThé';
+      btnEl.textContent = btnLabel;
+
+      if (lang === 'en') {
+        subtitleEl.textContent = 'Tap to open in the app';
+      } else if (lang === 'es') {
+        subtitleEl.textContent = 'Toca para abrir en la app';
+      } else {
+        subtitleEl.textContent = "Clique pour ouvrir dans l'app";
+      }
+    } else {
+      titleEl.innerHTML = '🌱 Découvre ce spot<br>sur CrudiThé';
+      subtitleEl.textContent = "Clique pour ouvrir dans l'app";
+      btnEl.textContent = 'Ouvrir dans CrudiThé';
+    }
+
+    // ===== FETCH NOM DEPUIS SUPABASE =====
+    async function fetchSpotName() {
+      if (!config || !id) return;
+
+      try {
+        var columns = config.column;
+        if (config.fallbackColumn && config.fallbackColumn !== config.column) {
+          columns = config.column + ',' + config.fallbackColumn;
+        }
+
+        var apiUrl = SUPABASE_URL + '/rest/v1/' + config.table + '?id=eq.' + id + '&select=' + columns;
+
+        var res = await fetch(apiUrl, {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
+          }
+        });
+
+        if (!res.ok) return;
+
+        var data = await res.json();
+        if (!data || data.length === 0) return;
+
+        var name = data[0][config.column];
+        if (!name && config.fallbackColumn) {
+          name = data[0][config.fallbackColumn];
+        }
+        
+        if (name) {
+          // Sécuriser contre l'injection HTML
+          var safeName = name.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          titleEl.innerHTML = '🌱 Découvre<br><strong>' + safeName + '</strong><br>sur CrudiThé';
+          
+          var ogTitle = document.querySelector('meta[property="og:title"]');
+          if (ogTitle) {
+            ogTitle.setAttribute('content', name + ' sur CrudiThé 🌱');
+          }
+        }
+      } catch (err) {
+        console.log('Erreur fetch nom:', err);
+      }
+    }
+
+    fetchSpotName();
   </script>
 </body>
 </html>
