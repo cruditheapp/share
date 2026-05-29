@@ -45,7 +45,6 @@
       border-radius: 50%;
       pointer-events: none;
     }
-
     body::after {
       content: '';
       position: fixed;
@@ -57,7 +56,6 @@
       border-radius: 50%;
       pointer-events: none;
     }
-
     .card {
       background: white;
       border-radius: 28px;
@@ -70,7 +68,6 @@
       z-index: 1;
       animation: cardIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
-
     @keyframes cardIn {
       from { opacity: 0; transform: translateY(20px) scale(0.97); }
       to { opacity: 1; transform: translateY(0) scale(1); }
@@ -83,7 +80,6 @@
       display: block;
       animation: fadeIn 0.5s ease 0.15s both;
     }
-
     .discover-label {
       font-size: 15px;
       color: #aaa;
@@ -91,7 +87,6 @@
       margin-bottom: 8px;
       animation: fadeIn 0.4s ease 0.25s both;
     }
-
     .spot-name {
       font-size: 28px;
       font-weight: 700;
@@ -101,12 +96,10 @@
       min-height: 35px;
       animation: fadeIn 0.4s ease 0.35s both;
     }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     .btn-open {
       display: inline-flex;
       align-items: center;
@@ -131,20 +124,16 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(1, 149, 73, 0.35);
     }
-
     .btn-open:active {
       transform: translateY(0);
     }
-
     .btn-icon {
       font-size: 18px;
       transition: transform 0.25s ease;
     }
-
     .btn-open:hover .btn-icon {
       transform: translateX(3px);
     }
-
     .divider {
       width: 50px;
       height: 1px;
@@ -152,7 +141,6 @@
       margin: 28px auto 20px;
       animation: fadeIn 0.4s ease 0.55s both;
     }
-
     .store-text {
       font-size: 13px;
       color: #b0b0b0;
@@ -186,7 +174,6 @@
       background: #333;
       transform: translateY(-1px);
     }
-
     /* Loading shimmer */
     .name-loading {
       display: inline-block;
@@ -198,12 +185,10 @@
       border-radius: 8px;
       vertical-align: middle;
     }
-
     @keyframes shimmer {
       0% { background-position: 200% 0; }
       100% { background-position: -200% 0; }
     }
-
     @media (max-width: 400px) {
       .card {
         padding: 36px 24px 28px;
@@ -224,14 +209,12 @@
   </style>
 </head>
 <body>
-
   <div class="card">
     <img src="https://hvnderbvaxzjswdvxpgs.supabase.co/storage/v1/object/public/avatars/Design%20sans%20titre%20(4).png" 
          alt="CrudiThé" 
          class="logo">
     
     <p class="discover-label" id="discover-label">Découvre</p>
-
     <div id="spot-name" class="spot-name notranslate" translate="no">
       <span class="name-loading"></span>
     </div>
@@ -240,9 +223,7 @@
       <span id="btn-text">Ouvrir dans l'app</span>
       <span class="btn-icon">→</span>
     </a>
-
     <div class="divider"></div>
-
     <p class="store-text" id="store-text">Pas encore l'app ? Télécharge-la !</p>
     <div class="store-buttons">
       <a href="https://apps.apple.com/app/crudithe/id6756739944" class="btn-store">
@@ -253,25 +234,22 @@
       </a>
     </div>
   </div>
-
   <script>
     // ===== CONFIG SUPABASE =====
     var SUPABASE_URL = 'https://hvnderbvaxzjswdvxpgs.supabase.co';
     var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2bmRlcmJ2YXh6anN3ZHZ4cGdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgwNzAyNzEsImV4cCI6MjA3MzY0NjI3MX0.SqWpfZ4kjW74tU3cD5UvnyRjVXmYaMKjdDs7cgPkSUw';
-
     // ===== PARAMÈTRES URL =====
     var urlParams = new URLSearchParams(window.location.search);
     var type = urlParams.get('type');
     var id = urlParams.get('id');
+    var barcode = urlParams.get('barcode');
     var lang = urlParams.get('lang') || 'fr';
-
     // ===== MAPPING TABLES =====
     function getRecipeColumn(currentLang) {
       if (currentLang === 'en') return 'nom_recette_en';
       if (currentLang === 'es') return 'nom_recette_es';
       return 'nom_recette';
     }
-
     var typeConfig = {
       restaurant: { 
         table: 'restaurants', 
@@ -301,7 +279,6 @@
     var btnTextEl = document.getElementById('btn-text');
     var discoverEl = document.getElementById('discover-label');
     var storeTextEl = document.getElementById('store-text');
-
     // ===== TRADUCTIONS =====
     if (lang === 'en') {
       discoverEl.textContent = 'Discover';
@@ -312,10 +289,8 @@
       btnTextEl.textContent = 'Abrir en la app';
       storeTextEl.textContent = '¿No tienes la app? ¡Descárgala!';
     }
-
     // ===== DEEP LINK =====
     var deepLink = 'crudithe://cruditheapp.com';
-
     if (type === 'recipe' && id) {
       deepLink = 'crudithe://cruditheapp.com/recipeDetails?recipeId=' + id + '&fromShare=true&lang=' + lang;
     } else if (type === 'event' && id) {
@@ -324,53 +299,77 @@
       deepLink = 'crudithe://cruditheapp.com/producteurDetails?prodId=' + id + '&fromShare=true&lang=' + lang;
     } else if (type === 'restaurant' && id) {
       deepLink = 'crudithe://cruditheapp.com/restaurantDetails?restoId=' + id + '&fromShare=true&lang=' + lang;
+    } else if (type === 'produit' && barcode) {
+      deepLink = 'crudithe://cruditheapp.com/produitDetails?barcode=' + barcode + '&fromShare=true&lang=' + lang;
     }
-
     btnEl.href = deepLink;
-
     // ===== FETCH NOM DEPUIS SUPABASE =====
     var config = typeConfig[type] || null;
-
     async function fetchSpotName() {
+      // ===== CAS SPÉCIAL PRODUIT (barcode + off_data JSONB) =====
+      if (type === 'produit' && barcode) {
+        try {
+          var prodUrl = SUPABASE_URL + '/rest/v1/products_db?barcode=eq.' + barcode + '&select=off_data';
+          var prodRes = await fetch(prodUrl, {
+            headers: {
+              'apikey': SUPABASE_ANON_KEY,
+              'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
+            }
+          });
+          if (prodRes.ok) {
+            var prodData = await prodRes.json();
+            if (prodData && prodData.length > 0 && prodData[0].off_data) {
+              var prodName = prodData[0].off_data.product_name || 'CrudiThé';
+              var safeName = prodName.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+              spotNameEl.innerHTML = safeName;
+              document.title = prodName + ' — CrudiThé';
+              var ogTProd = document.querySelector('meta[property="og:title"]');
+              if (ogTProd) ogTProd.setAttribute('content', prodName + ' sur CrudiThé 🌱');
+              return;
+            }
+          }
+          spotNameEl.textContent = 'CrudiThé';
+        } catch (e) {
+          console.log('Erreur fetch produit:', e);
+          spotNameEl.textContent = 'CrudiThé';
+        }
+        return;
+      }
+
+      // ===== AUTRES TYPES (restaurant, recette, event, producteur) =====
       if (!config || !id) {
         spotNameEl.textContent = 'CrudiThé';
         return;
       }
-
       try {
         var columns = config.column;
         if (config.fallbackColumn && config.fallbackColumn !== config.column) {
           columns = config.column + ',' + config.fallbackColumn;
         }
-
         var apiUrl = SUPABASE_URL + '/rest/v1/' + config.table + '?id=eq.' + id + '&select=' + columns;
-
         var res = await fetch(apiUrl, {
           headers: {
             'apikey': SUPABASE_ANON_KEY,
             'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
           }
         });
-
         if (!res.ok) {
           spotNameEl.textContent = 'CrudiThé';
           return;
         }
-
         var data = await res.json();
         if (!data || data.length === 0) {
           spotNameEl.textContent = 'CrudiThé';
           return;
         }
-
         var name = data[0][config.column];
         if (!name && config.fallbackColumn) {
           name = data[0][config.fallbackColumn];
         }
         
         if (name) {
-          var safeName = name.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-          spotNameEl.innerHTML = safeName;
+          var safeName2 = name.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          spotNameEl.innerHTML = safeName2;
           
           var ogTitle = document.querySelector('meta[property="og:title"]');
           if (ogTitle) {
@@ -385,7 +384,6 @@
         spotNameEl.textContent = 'CrudiThé';
       }
     }
-
     fetchSpotName();
   </script>
 </body>
