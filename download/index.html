@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Télécharge CrudiThé App 🌱</title>
+
+  <meta property="og:title" content="CrudiThé App — L'annuaire vegan + scanner produits 🌱">
+  <meta property="og:description" content="Télécharge l'app ou mets-la à jour pour profiter des dernières nouveautés !">
+  <meta property="og:image" content="https://hvnderbvaxzjswdvxpgs.supabase.co/storage/v1/object/public/avatars/Design%20sans%20titre%20(4).png">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #f4f8f1;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: -30%;
+      right: -20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(138,198,64,0.07) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -20%;
+      left: -15%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(1,149,73,0.05) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 44px 32px 36px;
+      max-width: 380px;
+      width: 100%;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      animation: cardIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .logo {
+      width: 170px;
+      height: auto;
+      margin: 0 auto 24px;
+      display: block;
+      animation: fadeIn 0.5s ease 0.15s both;
+    }
+    .title {
+      font-size: 26px;
+      font-weight: 700;
+      color: #019549;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      animation: fadeIn 0.4s ease 0.25s both;
+    }
+    .subtitle {
+      font-size: 15px;
+      color: #888;
+      font-weight: 400;
+      line-height: 1.5;
+      margin-bottom: 32px;
+      animation: fadeIn 0.4s ease 0.32s both;
+    }
+    .store-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      animation: fadeIn 0.4s ease 0.45s both;
+    }
+    .btn-store {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #1a1a1a;
+      color: white;
+      padding: 15px 28px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.2s ease;
+      width: 100%;
+      max-width: 280px;
+    }
+    .btn-store:hover {
+      background: #333;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+    .btn-store:active { transform: translateY(0); }
+    .btn-icon { font-size: 20px; }
+    .divider {
+      width: 50px;
+      height: 1px;
+      background: #e8e8e8;
+      margin: 30px auto 18px;
+      animation: fadeIn 0.4s ease 0.55s both;
+    }
+    .footer-text {
+      font-size: 13px;
+      color: #b0b0b0;
+      line-height: 1.5;
+      animation: fadeIn 0.4s ease 0.6s both;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 400px) {
+      .card { padding: 36px 24px 28px; border-radius: 24px; }
+      .title { font-size: 23px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="https://hvnderbvaxzjswdvxpgs.supabase.co/storage/v1/object/public/avatars/Design%20sans%20titre%20(4).png"
+         alt="CrudiThé" class="logo">
+
+    <p class="subtitle" id="subtitle">L'annuaire vegan + le scanner de produits 🌱<br>Télécharge l'app ou mets-la à jour pour profiter des dernières nouveautés !</p>
+
+    <div class="store-buttons">
+      <a href="https://apps.apple.com/app/crudithe/id6756739944" class="btn-store">
+        <span class="btn-icon">🍎</span> App Store
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.crudithe.app" class="btn-store">
+        <span class="btn-icon">▶️</span> Google Play
+      </a>
+    </div>
+
+    <div class="divider"></div>
+    <p class="footer-text" id="footer">L'annuaire vegan francophone 💚</p>
+  </div>
+
+  <script>
+    // Traductions simples selon le paramètre ?lang= (optionnel)
+    var lang = new URLSearchParams(window.location.search).get('lang') || 'fr';
+    var subtitleEl = document.getElementById('subtitle');
+    var footerEl = document.getElementById('footer');
+
+    if (lang === 'en') {
+      subtitleEl.innerHTML = "The vegan directory + product scanner 🌱<br>Download the app or update it to enjoy the latest features!";
+      footerEl.textContent = 'The French-speaking vegan directory 💚';
+    } else if (lang === 'es') {
+      subtitleEl.innerHTML = "El directorio vegano + escáner de productos 🌱<br>¡Descarga la app o actualízala para disfrutar de las novedades!";
+      footerEl.textContent = 'El directorio vegano francófono 💚';
+    }
+  </script>
+</body>
+</html>
