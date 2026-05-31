@@ -7,7 +7,7 @@
 
   <meta property="og:title" content="CrudiThé App — L'annuaire vegan + scanner produits 🌱">
   <meta property="og:description" content="Télécharge l'app ou mets-la à jour pour profiter des dernières nouveautés !">
-  <meta property="og:image" content="https://hvnderbvaxzjswdvxpgs.supabase.co/storage/v1/object/public/avatars/Design%20sans%20titre%20(4).png">
+  <meta property="og:image" content="https://hvnderbvaxzjswdvxpgs.supabase.co/storage/v1/object/public/avatars/logoCapp.svg">
   <meta property="og:type" content="website">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,25 +68,17 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
     .logo {
-      width: 170px;
+      width: 180px;
       height: auto;
       margin: 0 auto 24px;
       display: block;
       animation: fadeIn 0.5s ease 0.15s both;
     }
-    .title {
-      font-size: 26px;
-      font-weight: 700;
-      color: #019549;
-      line-height: 1.25;
-      margin-bottom: 10px;
-      animation: fadeIn 0.4s ease 0.25s both;
-    }
     .subtitle {
       font-size: 15px;
-      color: #888;
+      color: #555;
       font-weight: 400;
-      line-height: 1.5;
+      line-height: 1.6;
       margin-bottom: 32px;
       animation: fadeIn 0.4s ease 0.32s both;
     }
@@ -140,16 +132,15 @@
     }
     @media (max-width: 400px) {
       .card { padding: 36px 24px 28px; border-radius: 24px; }
-      .title { font-size: 23px; }
     }
   </style>
 </head>
 <body>
   <div class="card">
-    <img src="https://hvnderbvaxzjswdvxpgs.supabase.co/storage/v1/object/public/avatars/Design%20sans%20titre%20(4).png"
-         alt="CrudiThé" class="logo">
+    <img src="https://hvnderbvaxzjswdvxpgs.supabase.co/storage/v1/object/public/avatars/logoCapp.svg"
+         alt="CrudiThé App" class="logo">
 
-    <p class="subtitle" id="subtitle">L'annuaire vegan + le scanner de produits 🌱<br>Télécharge l'app ou mets-la à jour pour profiter des dernières nouveautés !</p>
+    <p class="subtitle" id="subtitle">L'application préférée des vegans 💚<br>Annuaire Vegan + scanner de produits 🌱<br>Télécharge l'appli ou mets-la à jour<br>pour profiter des dernières nouveautés !</p>
 
     <div class="store-buttons">
       <a href="https://apps.apple.com/app/crudithe/id6756739944" class="btn-store">
@@ -171,10 +162,10 @@
     var footerEl = document.getElementById('footer');
 
     if (lang === 'en') {
-      subtitleEl.innerHTML = "The vegan directory + product scanner 🌱<br>Download the app or update it to enjoy the latest features!";
+      subtitleEl.innerHTML = "Vegans' favorite app 💚<br>Vegan directory + product scanner 🌱<br>Download or update the app<br>to enjoy the latest features!";
       footerEl.textContent = 'The French-speaking vegan directory 💚';
     } else if (lang === 'es') {
-      subtitleEl.innerHTML = "El directorio vegano + escáner de productos 🌱<br>¡Descarga la app o actualízala para disfrutar de las novedades!";
+      subtitleEl.innerHTML = "La app favorita de los veganos 💚<br>Directorio vegano + escáner de productos 🌱<br>Descarga o actualiza la app<br>¡para disfrutar de las novedades!";
       footerEl.textContent = 'El directorio vegano francófono 💚';
     }
   </script>
