@@ -7,7 +7,7 @@
 
   <meta property="og:title" content="CrudiThé App — L'annuaire vegan + scanner produits 🌱">
   <meta property="og:description" content="Télécharge l'app ou mets-la à jour pour profiter des dernières nouveautés !">
-  <meta property="og:image" content="https://hvnderbvaxzjswdvxpgs.supabase.co/storage/v1/object/public/avatars/Logo%20CrudiThe.png">
+  <meta property="og:image" content="https://hvnderbvaxzjswdvxpgs.supabase.co/storage/v1/object/public/avatars/Design%20sans%20titre%20(4).png">
   <meta property="og:type" content="website">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,9 +70,18 @@
     .logo {
       width: 180px;
       height: auto;
-      margin: 0 auto 24px;
+      margin: 0 auto 20px;
       display: block;
       animation: fadeIn 0.5s ease 0.15s both;
+    }
+    .headline {
+      font-size: 20px;
+      font-weight: 700;
+      font-style: italic;
+      color: #019549;
+      line-height: 1.3;
+      margin-bottom: 16px;
+      animation: fadeIn 0.4s ease 0.25s both;
     }
     .subtitle {
       font-size: 15px;
@@ -132,6 +141,7 @@
     }
     @media (max-width: 400px) {
       .card { padding: 36px 24px 28px; border-radius: 24px; }
+      .headline { font-size: 18px; }
     }
   </style>
 </head>
@@ -140,7 +150,9 @@
     <img src="https://hvnderbvaxzjswdvxpgs.supabase.co/storage/v1/object/public/avatars/logoCapp.svg"
          alt="CrudiThé App" class="logo">
 
-    <p class="subtitle" id="subtitle">L'application préférée des vegans 💚<br>Annuaire Vegan + scanner de produits 🌱<br>Télécharge l'appli ou mets-la à jour<br>pour profiter des dernières nouveautés !</p>
+    <p class="headline" id="headline">L'application préférée des vegans 💚</p>
+
+    <p class="subtitle" id="subtitle">Annuaire Vegan + scanner de produits 🌱<br>Télécharge l'appli ou mets-la à jour<br>pour profiter des dernières nouveautés !</p>
 
     <div class="store-buttons">
       <a href="https://apps.apple.com/app/crudithe/id6756739944" class="btn-store">
@@ -158,14 +170,17 @@
   <script>
     // Traductions simples selon le paramètre ?lang= (optionnel)
     var lang = new URLSearchParams(window.location.search).get('lang') || 'fr';
+    var headlineEl = document.getElementById('headline');
     var subtitleEl = document.getElementById('subtitle');
     var footerEl = document.getElementById('footer');
 
     if (lang === 'en') {
-      subtitleEl.innerHTML = "Vegans' favorite app 💚<br>Vegan directory + product scanner 🌱<br>Download or update the app<br>to enjoy the latest features!";
+      headlineEl.textContent = "Vegans' favorite app 💚";
+      subtitleEl.innerHTML = "Vegan directory + product scanner 🌱<br>Download or update the app<br>to enjoy the latest features!";
       footerEl.textContent = 'The French-speaking vegan directory 💚';
     } else if (lang === 'es') {
-      subtitleEl.innerHTML = "La app favorita de los veganos 💚<br>Directorio vegano + escáner de productos 🌱<br>Descarga o actualiza la app<br>¡para disfrutar de las novedades!";
+      headlineEl.textContent = "La app favorita de los veganos 💚";
+      subtitleEl.innerHTML = "Directorio vegano + escáner de productos 🌱<br>Descarga o actualiza la app<br>¡para disfrutar de las novedades!";
       footerEl.textContent = 'El directorio vegano francófono 💚';
     }
   </script>
