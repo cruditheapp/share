@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noter CrudiThé 🌱</title>
+  <meta name="robots" content="noindex">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #F5F0E8;
+      color: #0B9444;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+      text-align: center;
+    }
+    .card {
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: 40px 28px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 8px 32px rgba(11, 148, 68, 0.12);
+    }
+    .logo {
+      width: 120px;
+      height: auto;
+      margin-bottom: 24px;
+    }
+    .stars {
+      font-size: 38px;
+      margin-bottom: 16px;
+      letter-spacing: 4px;
+    }
+    h1 {
+      font-size: 22px;
+      color: #0B9444;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    p {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.5;
+      margin-bottom: 28px;
+    }
+    .btn {
+      display: inline-block;
+      background: #8cc63f;
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 16px 32px;
+      border-radius: 16px;
+      font-size: 17px;
+      font-weight: 600;
+      width: 100%;
+      transition: transform 0.15s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:active {
+      transform: scale(0.97);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: #0B9444;
+      border: 2px solid #8cc63f;
+      margin-top: 12px;
+    }
+    .manual-choice {
+      margin-top: 24px;
+      display: none;
+    }
+    .manual-choice.show {
+      display: block;
+    }
+    .hint {
+      font-size: 13px;
+      color: #999;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="https://hvnderbvaxzjswdvxpgs.supabase.co/storage/v1/object/public/avatars/Logo%20CrudiThe.png"
+         alt="CrudiThé"
+         class="logo">
+
+    <div class="stars">⭐️⭐️⭐️⭐️⭐️</div>
+
+    <h1 id="title">Merci de soutenir CrudiThé 🌱</h1>
+    <p id="subtitle">Ton avis nous aide énormément à faire connaître le premier annuaire vegan francophone 💚</p>
+
+    <a id="main-btn" href="#" class="btn">Laisser un avis</a>
+
+    <div id="manual" class="manual-choice">
+      <a href="https://apps.apple.com/app/id6756739944?action=write-review" class="btn btn-secondary">
+        🍎 Noter sur l'App Store
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.crudithe.app" class="btn btn-secondary">
+        ▶️ Noter sur Google Play
+      </a>
+    </div>
+
+    <p class="hint" id="hint">Tu seras redirigé·e vers ta boutique d'applications.</p>
+  </div>
+
+  <script>
+    // ===== LIENS DE NOTATION =====
+    var APPLE_REVIEW = 'https://apps.apple.com/app/id6756739944?action=write-review';
+    var GOOGLE_REVIEW = 'https://play.google.com/store/apps/details?id=com.crudithe.app';
+
+    // ===== LANGUE =====
+    var urlParams = new URLSearchParams(window.location.search);
+    var lang = urlParams.get('lang') || 'fr';
+
+    var translations = {
+      fr: {
+        title: 'Merci de soutenir CrudiThé 🌱',
+        subtitle: 'Ton avis nous aide énormément à faire connaître le premier annuaire vegan francophone 💚',
+        button: 'Laisser un avis',
+        hint: 'Tu seras redirigé·e vers ta boutique d\'applications.'
+      },
+      en: {
+        title: 'Thank you for supporting CrudiThé 🌱',
+        subtitle: 'Your review helps us a lot to grow the first francophone vegan directory 💚',
+        button: 'Leave a review',
+        hint: 'You\'ll be redirected to your app store.'
+      },
+      es: {
+        title: '¡Gracias por apoyar CrudiThé! 🌱',
+        subtitle: 'Tu reseña nos ayuda muchísimo a dar a conocer el primer directorio vegano francófono 💚',
+        button: 'Dejar una reseña',
+        hint: 'Serás redirigido·a a tu tienda de aplicaciones.'
+      }
+    };
+
+    var t = translations[lang] || translations.fr;
+    document.getElementById('title').textContent = t.title;
+    document.getElementById('subtitle').textContent = t.subtitle;
+    document.getElementById('main-btn').textContent = t.button;
+    document.getElementById('hint').textContent = t.hint;
+    document.documentElement.lang = lang;
+
+    // ===== DÉTECTION DE LA PLATEFORME =====
+    function detectPlatform() {
+      var ua = navigator.userAgent || navigator.vendor || window.opera;
+      // iOS
+      if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+        return 'ios';
+      }
+      // Android
+      if (/android/i.test(ua)) {
+        return 'android';
+      }
+      return 'unknown';
+    }
+
+    var platform = detectPlatform();
+    var mainBtn = document.getElementById('main-btn');
+
+    if (platform === 'ios') {
+      mainBtn.href = APPLE_REVIEW;
+    } else if (platform === 'android') {
+      mainBtn.href = GOOGLE_REVIEW;
+    } else {
+      // Sur ordinateur ou plateforme inconnue : afficher les 2 choix
+      mainBtn.style.display = 'none';
+      document.getElementById('manual').classList.add('show');
+    }
+  </script>
+</body>
+</html>
