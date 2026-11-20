@@ -289,6 +289,15 @@
       btnTextEl.textContent = 'Abrir en la app';
       storeTextEl.textContent = '¿No tienes la app? ¡Descárgala!';
     }
+    if (type === 'discussion') {
+      if (lang === 'en') {
+        discoverEl.textContent = 'Join the discussion';
+      } else if (lang === 'es') {
+        discoverEl.textContent = 'Únete a la discusión';
+      } else {
+        discoverEl.textContent = 'Rejoins la discussion';
+      }
+    }
     // ===== DEEP LINK =====
     var deepLink = 'crudithe://cruditheapp.com';
     if (type === 'recipe' && id) {
@@ -301,11 +310,21 @@
       deepLink = 'crudithe://cruditheapp.com/restaurantDetails?restoId=' + id + '&fromShare=true&lang=' + lang;
     } else if (type === 'produit' && barcode) {
       deepLink = 'crudithe://cruditheapp.com/produitDetails?barcode=' + barcode + '&fromShare=true&lang=' + lang;
+    } else if (type === 'discussion' && id) {
+      deepLink = 'crudithe://cruditheapp.com/forum?discussionId=' + id + '&fromShare=true&lang=' + lang;
     }
     btnEl.href = deepLink;
     // ===== FETCH NOM DEPUIS SUPABASE =====
     var config = typeConfig[type] || null;
     async function fetchSpotName() {
+      // ===== CAS SPÉCIAL DISCUSSION (titre transmis dans le lien) =====
+      if (type === 'discussion') {
+        var titre = urlParams.get('name') || 'CrudiThé';
+        spotNameEl.textContent = titre;
+        document.title = titre + ' — CrudiThé';
+        return;
+      }
+
       // ===== CAS SPÉCIAL PRODUIT (barcode + off_data JSONB) =====
       if (type === 'produit' && barcode) {
         try {
